@@ -12,46 +12,23 @@ on:
       - 'ops/docker/**'
 
 jobs:
-  determine-changed-builder-dirs:
+  determine-changed-dirs:
     name: "Builder"
     if: >
       always()
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
-      inside-dir: 'ops/docker/010-builder'
+      inside-dir: 'ops/docker'
 
   build-and-push-changed-builder-dirs:
     name: "Build and Push"
-    needs: [ determine-changed-builder-dirs ]
+    needs: [ determine-changed-dirs ]
     if: >
       always()
-      && needs.determine-changed-builder-dirs.outputs.changed-paths != '[]'
+      && needs.determine-changed-dirs.outputs.changed-paths != '[]'
     uses: ./.github/workflows/release-build-and-push.yml
     with:
-      paths: ${{ needs.determine-changed-builder-dirs.outputs.changed-paths }}
-    secrets:
-      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
-
-  determine-changed-application-dirs:
-    name: "Applications"
-    needs: [ build-and-push-changed-builder-dirs ]
-    if: >
-      always()
-      && (needs.build-and-push-changed-builder-dirs.result == 'success' || needs.build-and-push-changed-builder-dirs.result == 'skipped')
-    uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
-    with:
-      inside-dir: 'ops/docker/020-application'
-
-  build-and-push-changed-application:
-    name: "Build and Push"
-    needs: [ determine-changed-application-dirs ]
-    if: >
-      always()
-      && needs.determine-changed-application-dirs.outputs.changed-paths != '[]'
-    uses: ./.github/workflows/release-build-and-push.yml
-    with:
-      paths: ${{ needs.determine-changed-application-dirs.outputs.changed-paths }}
+      paths: ${{ needs.determine-changed-dirs.outputs.changed-paths }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}

@@ -6,33 +6,27 @@ services:
     pull_policy: never
     build:
       context: .
-      dockerfile: ops/docker/010-builder/builder/Dockerfile
+      dockerfile: ops/docker/builder/Dockerfile
 
-  techdocs-builder-mkdocs:
-    container_name: techdocs-builder-mkdocs
-    image: webgrip/techdocs-builder-mkdocs:latest
-    pull_policy: never
+  builder-mkdocs-runner:
+    container_name: builder-mkdocs-runner
+    image: webgrip/mkdocs-runner:latest
+    pull_policy: always
     depends_on:
       techdocs-builder-builder:
         condition: service_completed_successfully
-    build:
-      context: .
-      dockerfile: ops/docker/020-application/mkdocs/Dockerfile
     ports:
       - "8000:8000"
     volumes:
       - ./docs/mkdocs:/docs
 
-  techdocs-builder-techdocs:
+  builder-techdocs-runner:
     container_name: techdocs-builder-techdocs
-    image: webgrip/techdocs-builder-techdocs:latest
-    pull_policy: never
+    image: webgrip/techdocs-runner:latest
+    pull_policy: always
     depends_on:
       techdocs-builder-builder:
         condition: service_completed_successfully
-    build:
-      context: .
-      dockerfile: ops/docker/020-application/techdocs/Dockerfile
     ports:
       - "8001:8000"
     volumes:
