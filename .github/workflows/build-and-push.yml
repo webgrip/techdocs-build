@@ -6,7 +6,7 @@ on:
   workflow_call:
     inputs:
       paths:
-        description: 'List of paths in JSON array format. e.g.: ["ops/docker/${{ github.event.repository.name }}"]'
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/techdocs-builder"]'
         required: true
         type: string
       version:
@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
     inputs:
       paths:
-        description: 'List of paths in JSON array format. e.g.: ["ops/docker/${{ github.event.repository.name }}"]'
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/techdocs-builder"]'
         required: true
         type: string
       version:
