@@ -26,6 +26,10 @@ on:
         description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder"]'
         required: true
         type: string
+      version:
+        description: 'Semantic version'
+        required: true
+        type: string
 
 jobs:
   build-and-push:
