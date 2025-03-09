@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.2...builder-1.0.3) (2025-03-09)
+
+
+### Bug Fixes
+
+* **mkdocs:** Deploy after pushing builder ([c6b60c5](https://github.com/webgrip/techdocs-builder/commit/c6b60c59b562149c568c3bb52b75afe6708ce898))
+
 ## [1.0.2](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.1...builder-1.0.2) (2025-03-09)
 
 
