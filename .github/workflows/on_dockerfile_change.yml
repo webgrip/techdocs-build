@@ -12,30 +12,47 @@ on:
       - 'ops/docker/**'
 
 jobs:
-  determine-changed-dockerfiles:
+  release:
+    name: 'Release'
+    uses: webgrip/workflows/.github/workflows/semantic-release.yml@main
+
+  determine-changed-builder:
     name: "Docker"
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
-      inside-dir: 'ops/docker'
+      inside-dir: 'ops/docker/010-builder'
 
-  release:
-    name: 'Release'
-    needs: [ determine-changed-dockerfiles ]
-    if: >
-      always()
-      && needs.determine-changed-dockerfiles.outputs.changed-paths != '[]'
-    uses: webgrip/workflows/.github/workflows/semantic-release.yml@main
-
-  build-and-push-changed-dockerfiles:
+  build-and-push-changed-builder:
     name: "Deploy Changed Services"
-    needs: [ determine-changed-dockerfiles, release ]
+    needs: [ determine-changed-builder, release ]
     if: >
       always()
       && needs.release.result == 'success'
-      && needs.determine-changed-dockerfiles.outputs.changed-paths != '[]'
+      && needs.determine-changed-builder.outputs.changed-paths != '[]'
     uses: ./.github/workflows/build-and-push-docker-images.yml
     with:
-      paths: ${{ needs.determine-changed-dockerfiles.outputs.changed-paths }}
+      paths: ${{ needs.determine-changed-builder.outputs.changed-paths }}
+      version: ${{ needs.release.outputs.version }}
+    secrets:
+      DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+      DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
+  determine-changed-application:
+    name: "Docker"
+    uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
+    with:
+      inside-dir: 'ops/docker/020-application'
+
+  build-and-push-changed-application:
+    name: "Deploy Changed Services"
+    needs: [ determine-changed-application, release ]
+    if: >
+      always()
+      && needs.release.result == 'success'
+      && needs.determine-changed-application.outputs.changed-paths != '[]'
+    uses: ./.github/workflows/build-and-push-docker-images.yml
+    with:
+      paths: ${{ needs.determine-changed-application.outputs.changed-paths }}
       version: ${{ needs.release.outputs.version }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

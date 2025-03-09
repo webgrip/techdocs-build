@@ -12,3 +12,4 @@ COPY ./ops/docker/020-application/techdocs/docker-entrypoint.sh ./docker-entrypo
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["mkdocs", "serve", "-a", "0.0.0.0:8000"]
+
