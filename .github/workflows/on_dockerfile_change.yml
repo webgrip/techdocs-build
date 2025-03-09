@@ -38,6 +38,7 @@ jobs:
     needs: [ build-and-push-changed-builder-dirs ]
     if: >
       always()
+      && (needs.build-and-push-changed-builder-dirs.result == 'success' || needs.build-and-push-changed-builder-dirs.result == 'skipped')
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
       inside-dir: 'ops/docker/020-application'
