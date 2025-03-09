@@ -1,3 +1,18 @@
+# [1.1.0](https://github.com/webgrip/techdocs-builder/compare/1.0.0...1.1.0) (2025-03-09)
+
+
+### Bug Fixes
+
+* release needs changed dirs job ([8a145f8](https://github.com/webgrip/techdocs-builder/commit/8a145f8ba0d7637df7e3a6e5a15e413cd6319853))
+* **workflows:** docker creds secrets ([12ad4eb](https://github.com/webgrip/techdocs-builder/commit/12ad4eb978e9692793d2b7ecb06014da0c2d5faf))
+* **workflows:** Set build-and-push-docker-images.yml workflow-dispatch step ([0bd3e13](https://github.com/webgrip/techdocs-builder/commit/0bd3e1309aa3706996c026b4cf398fb3cfa5571a))
+* **workflows:** Set build-and-push-docker-images.yml workflow-dispatch step ([e068e33](https://github.com/webgrip/techdocs-builder/commit/e068e33ac29b57045af2f8405076a8617b9b8067))
+
+
+### Features
+
+* pulled apart docker files for builder and its implementations for mkdocs and techdocs ([b750774](https://github.com/webgrip/techdocs-builder/commit/b7507743068aa82200fbc5d874807b8409b4b3b0))
+
 # 1.0.0 (2025-03-09)
 
 
