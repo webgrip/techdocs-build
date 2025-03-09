@@ -1,3 +1,16 @@
+## [1.0.1](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.0...builder-1.0.1) (2025-03-09)
+
+
+### Bug Fixes
+
+* **workflows:** deploy ([a01f62f](https://github.com/webgrip/techdocs-builder/commit/a01f62f2e33ab3df5bbdd641d479b8356239004f))
+* **workflows:** deploy ([c556a22](https://github.com/webgrip/techdocs-builder/commit/c556a221ffd065e0cdda8519d7a8ebfcd1d357bc))
+* **workflows:** deploy ([b179865](https://github.com/webgrip/techdocs-builder/commit/b179865e989cbaab8ba5969548ff6ee2fe52a276))
+* **workflows:** deploy ([716f2ed](https://github.com/webgrip/techdocs-builder/commit/716f2ed162a7b0d804ee81522f790d52a2ca71d6))
+* **workflows:** deploy ([7dbbf4f](https://github.com/webgrip/techdocs-builder/commit/7dbbf4f42d48e76ac69811f0c640631b4517a2d9))
+* **workflows:** deploy ([47289d3](https://github.com/webgrip/techdocs-builder/commit/47289d3f79a63c9542198f28322c4cc7611fc609))
+* **workflows:** deploy ([6046e58](https://github.com/webgrip/techdocs-builder/commit/6046e581d535c0cd42be62b6ec3b6d1fbe2e8afb))
+
 # 1.0.0 (2025-03-09)
 
 
