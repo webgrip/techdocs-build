@@ -28,10 +28,6 @@
       {
         "labels": false
       }
-    ],
-    [
-      "@semantic-release/npm",
-      false
     ]
   ]
 }
