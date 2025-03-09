@@ -1,3 +1,13 @@
+## [1.1.1](https://github.com/webgrip/techdocs-builder/compare/1.1.0...1.1.1) (2025-03-09)
+
+
+### Bug Fixes
+
+* **workflows:** Make builder go first, and THEN the applications ([0d37a19](https://github.com/webgrip/techdocs-builder/commit/0d37a19cfc96586707eec3c479e480f69cd88481))
+* **workflows:** Only check for dirs AFTER release ([9cb107d](https://github.com/webgrip/techdocs-builder/commit/9cb107d66011dc27df272aeab8c8d45039ab23aa))
+* **workflows:** Only do application after build-and-push-changed-builder ([938a53f](https://github.com/webgrip/techdocs-builder/commit/938a53f0b6dd3f95a907e5fc99d5b42ddea6efdb))
+* **workflows:** Only do application after build-and-push-changed-builder ([646089f](https://github.com/webgrip/techdocs-builder/commit/646089f9587f8cd5ded06a3e6e54bddc593438f3))
+
 # [1.1.0](https://github.com/webgrip/techdocs-builder/compare/1.0.0...1.1.0) (2025-03-09)
 
 
