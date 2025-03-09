@@ -1,6 +1,6 @@
 name: "[Action] Build and Push Docker Image(s)"
 
-run-name: "Release, Build and Push Docker Image(s)"
+run-name: "Build and Push Docker Image(s)"
 
 on:
   workflow_call:
