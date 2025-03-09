@@ -1,0 +1,50 @@
+name: "[Action] Release, Build and Push Docker Image(s)"
+
+run-name: "Release, Build and Push Docker Image(s)"
+
+on:
+  workflow_call:
+    inputs:
+      paths:
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder", ...]'
+        required: true
+        type: string
+    secrets:
+      DOCKER_USERNAME:
+        description: 'DockerHub username'
+        required: true
+      DOCKER_TOKEN:
+        description: 'DockerHub token'
+        required: true
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder", "ops/docker/mkdocs", ...]'
+        required: true
+        type: string
+
+jobs:
+  release-build-and-push:
+    runs-on: arc-runner-set
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(inputs.paths) }}
+    steps:
+      - id: strip path
+        name: "Strip to Final Directory"
+        run: |
+          changed_path="${{ matrix.path }}"
+          final_dir=$(basename "$changed_path")
+          echo "finalDirectory=$final_dir" >> $GITHUB_OUTPUT
+
+      - uses: webgrip/workflows/.github/composite-actions/semantic-release@main
+        with:
+          release-type: ${{ steps.strip-path.outputs.finalDirectory }}
+
+      - uses: webgrip/workflows/.github/composite-actions/docker-build-push@main
+        with:
+          docker-context: '.'
+          docker-file: '${{ matrix.path }}/Dockerfile'
+          docker-tags: |
+            ${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+            ${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ steps.semantic-release.outputs.version }}

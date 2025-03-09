@@ -12,37 +12,31 @@ on:
       - 'ops/docker/**'
 
 jobs:
-  release:
-    name: 'Release'
-    uses: webgrip/workflows/.github/workflows/semantic-release.yml@main
-
-  determine-changed-builder:
-    name: "Docker"
-    needs: [ release ]
+  determine-changed-builder-dirs:
+    name: "Builder"
     if: >
       always()
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
       inside-dir: 'ops/docker/010-builder'
 
-  build-and-push-changed-builder:
-    name: "Deploy Changed Services"
-    needs: [ determine-changed-builder, release ]
+  build-and-push-changed-builder-dirs:
+    name: "Build and Push"
+    needs: [ determine-changed-builder-dirs ]
     if: >
       always()
       && needs.release.result == 'success'
-      && needs.determine-changed-builder.outputs.changed-paths != '[]'
-    uses: ./.github/workflows/build-and-push-docker-images.yml
+      && needs.determine-changed-builder-dirs.outputs.changed-paths != '[]'
+    uses: ./.github/workflows/release-build-and-push.yml
     with:
-      paths: ${{ needs.determine-changed-builder.outputs.changed-paths }}
-      version: ${{ needs.release.outputs.version }}
+      paths: ${{ needs.determine-changed-builder-dirs.outputs.changed-paths }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
 
-  determine-changed-application:
-    name: "Docker"
-    needs: [ release, build-and-push-changed-builder ]
+  determine-changed-application-dirs:
+    name: "Applications"
+    needs: [ build-and-push-changed-builder-dirs ]
     if: >
       always()
       && needs.release.result == 'success'
@@ -51,16 +45,15 @@ jobs:
       inside-dir: 'ops/docker/020-application'
 
   build-and-push-changed-application:
-    name: "Deploy Changed Services"
-    needs: [ determine-changed-application, release ]
+    name: "Build and Push"
+    needs: [ determine-changed-application-dirs ]
     if: >
       always()
       && needs.release.result == 'success'
-      && needs.determine-changed-application.outputs.changed-paths != '[]'
-    uses: ./.github/workflows/build-and-push-docker-images.yml
+      && needs.determine-changed-application-dirs.outputs.changed-paths != '[]'
+    uses: ./.github/workflows/release-build-and-push.yml
     with:
-      paths: ${{ needs.determine-changed-application.outputs.changed-paths }}
-      version: ${{ needs.release.outputs.version }}
+      paths: ${{ needs.determine-changed-application-dirs.outputs.changed-paths }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
