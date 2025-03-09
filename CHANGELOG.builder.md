@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.4...builder-1.1.0) (2025-03-09)
+
+
+### Features
+
+* deploy mkdocs and techdocs ([8961483](https://github.com/webgrip/techdocs-builder/commit/8961483c7e3eb3c1a4630fb24c41130d730da35e))
+
 ## [1.0.4](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.3...builder-1.0.4) (2025-03-09)
 
 
