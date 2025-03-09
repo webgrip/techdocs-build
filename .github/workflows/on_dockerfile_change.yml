@@ -18,6 +18,9 @@ jobs:
 
   determine-changed-builder:
     name: "Docker"
+    needs: [ release ]
+    if: >
+      always()
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
       inside-dir: 'ops/docker/010-builder'
