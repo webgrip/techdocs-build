@@ -29,7 +29,7 @@ RUN curl -o /opt/plantuml.jar -L http://sourceforge.net/projects/plantuml/files/
     chmod +x /usr/local/bin/plantuml
 
 
-FROM alpine:3.20 AS build
+FROM alpine:3.20 AS final
 
 RUN apk add --no-cache \
     libstdc++ \
@@ -41,26 +41,8 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
 
 COPY --from=node /usr/local /usr/local
 COPY --from=python /usr/local /usr/local
-
-WORKDIR /docs
-
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["mkdocs", "serve", "-a", "0.0.0.0:8000"]
-
-
-FROM build AS techdocs
-
-RUN apk add --no-cache \
-    python3 \
-    py3-pip
-
-COPY --from=build /usr/local /usr/local
 COPY --from=openjdk /opt/plantuml.jar /opt/plantuml.jar
 COPY --from=openjdk /usr/local/bin/plantuml /usr/local/bin/plantuml
 
-COPY ./ops/docker/mkdocs/generate-techdocs.sh ./docker-entrypoint.sh
+WORKDIR /docs
 
-
-FROM build AS mkdocs
-
-COPY ./ops/docker/mkdocs/generate-mkdocs.sh ./docker-entrypoint.sh

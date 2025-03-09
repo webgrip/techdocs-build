@@ -7,27 +7,35 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 'main'
+      - main
     paths:
       - 'ops/docker/**'
-      - '.releaserc.json'
-      - './github/workflows/on_dockerfile_change.yml'
+
 jobs:
+  determine-changed-dockerfiles:
+    name: "Docker"
+    uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
+    with:
+      inside-dir: 'ops/docker'
+
   release:
     name: 'Release'
+    if: >
+      always()
+      && needs.determine-changed-dockerfiles.outputs.changed-paths != '[]'
     uses: webgrip/workflows/.github/workflows/semantic-release.yml@main
 
-  build:
-    name: 'Build'
-    needs: [ release ]
-    if: always() && needs.release.result == 'success' && needs.release.outputs.version != ''
-    uses: webgrip/workflows/.github/workflows/docker-build-and-push.yml@main
+  build-and-push-changed-dockerfiles:
+    name: "Deploy Changed Services"
+    needs: [ determine-changed-dockerfiles, release ]
+    if: >
+      always()
+      && needs.release.result == 'success'
+      && needs.determine-changed-dockerfiles.outputs.changed-paths != '[]'
+    uses: ./.github/workflows/build-and-push-docker-images.yml
     with:
-      docker-context: '.'
-      docker-file: './ops/docker/mkdocs/Dockerfile'
-      docker-tags: |
-        ${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-        ${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ needs.release.outputs.version }}
+      paths: ${{ needs.determine-changed-dockerfiles.outputs.changed-paths }}
+      version: ${{ needs.release.outputs.version }}
     secrets:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
