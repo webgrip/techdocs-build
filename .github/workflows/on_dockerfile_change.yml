@@ -25,7 +25,6 @@ jobs:
     needs: [ determine-changed-builder-dirs ]
     if: >
       always()
-      && needs.release.result == 'success'
       && needs.determine-changed-builder-dirs.outputs.changed-paths != '[]'
     uses: ./.github/workflows/release-build-and-push.yml
     with:
@@ -39,7 +38,6 @@ jobs:
     needs: [ build-and-push-changed-builder-dirs ]
     if: >
       always()
-      && needs.release.result == 'success'
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
       inside-dir: 'ops/docker/020-application'
@@ -49,7 +47,6 @@ jobs:
     needs: [ determine-changed-application-dirs ]
     if: >
       always()
-      && needs.release.result == 'success'
       && needs.determine-changed-application-dirs.outputs.changed-paths != '[]'
     uses: ./.github/workflows/release-build-and-push.yml
     with:
