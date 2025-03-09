@@ -25,6 +25,7 @@ on:
 
 jobs:
   release-build-and-push:
+    name: 'Release, Build and Push'
     runs-on: arc-runner-set
     strategy:
       fail-fast: false
