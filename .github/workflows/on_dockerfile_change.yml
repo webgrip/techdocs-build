@@ -39,6 +39,10 @@ jobs:
 
   determine-changed-application:
     name: "Docker"
+    needs: [ release, build-and-push-changed-builder ]
+    if: >
+      always()
+      && needs.release.result == 'success'
     uses: webgrip/workflows/.github/workflows/determine-changed-directories.yml@main
     with:
       inside-dir: 'ops/docker/020-application'
