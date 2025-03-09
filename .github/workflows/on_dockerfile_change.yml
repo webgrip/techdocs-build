@@ -10,7 +10,7 @@ on:
     paths:
       - 'ops/docker/**'
       - '.releaserc.json'
-      - 'on_dockerfile_change.yml'
+      - './github/workflows/on_dockerfile_change.yml'
 jobs:
   release:
     name: 'Release'
