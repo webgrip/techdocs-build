@@ -20,7 +20,7 @@ jobs:
     with:
       inside-dir: 'ops/docker'
 
-  build-and-push-changed-builder-dirs:
+  build-and-push-changed-dirs:
     name: "Build and Push"
     needs: [ determine-changed-dirs ]
     if: >

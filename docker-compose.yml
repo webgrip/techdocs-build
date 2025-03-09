@@ -2,11 +2,11 @@ services:
 
   techdocs-builder-builder:
     container_name: techdocs-builder-builder
-    image: webgrip/techdocs-builder-builder:latest
+    image: webgrip/techdocs-builder:latest
     pull_policy: never
     build:
       context: .
-      dockerfile: ops/docker/builder/Dockerfile
+      dockerfile: ops/docker/techdocs-builder/Dockerfile
 
   builder-mkdocs-runner:
     container_name: builder-mkdocs-runner
