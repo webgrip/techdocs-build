@@ -6,7 +6,7 @@ on:
   workflow_call:
     inputs:
       paths:
-        description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder", ...]'
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/010-builder/builder", "ops/docker/020-application/mkdocs", "ops/docker/020-application/techdocs"]'
         required: true
         type: string
     secrets:
@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
     inputs:
       paths:
-        description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder", "ops/docker/mkdocs", ...]'
+        description: 'List of paths in JSON array format. e.g.: ["ops/docker/010-builder/builder", "ops/docker/020-application/mkdocs", "ops/docker/020-application/techdocs"]'
         required: true
         type: string
 
