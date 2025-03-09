@@ -20,7 +20,7 @@ on:
       DOCKER_TOKEN:
         description: 'DockerHub token'
         required: true
-workflow_dispatch:
+  workflow_dispatch:
     inputs:
       paths:
         description: 'List of paths in JSON array format. e.g.: ["ops/docker/builder", "ops/docker/mkdocs", ...]'
