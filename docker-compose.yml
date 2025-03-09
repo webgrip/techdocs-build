@@ -1,0 +1,21 @@
+services:
+  mkdocs:
+    container_name: techdocs-build-mkdocs
+    build:
+      context: .
+      dockerfile: ops/docker/mkdocs/Dockerfile
+      target: mkdocs
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./docs/mkdocs:/docs
+  techdocs:
+    container_name: techdocs-build-techdocs
+    build:
+      context: .
+      dockerfile: ops/docker/mkdocs/Dockerfile
+      target: techdocs
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./docs/techdocs:/docs

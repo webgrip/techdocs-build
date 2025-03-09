@@ -1,0 +1,25 @@
+site_name: 'TechDocs and mkdocs build'
+#site_description: ''
+
+theme:
+  name: 'dracula'
+
+nav:
+  - Index: index.md
+
+# https://www.mkdocs.org/user-guide/configuration
+plugins:
+  - search:
+      min-search-length: 2
+      prebuild_index: true
+      indexing: full
+  - mermaid2:
+      arguments:
+        securityLevel: 'loose'
+  - macros
+#  - offline
+
+markdown_extensions:
+  - markdown_inline_mermaid
+  - markdown_inline_graphviz
+
