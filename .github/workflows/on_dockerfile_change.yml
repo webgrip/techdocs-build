@@ -4,6 +4,7 @@ concurrency:
   group: push-${{ github.branch }}
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'main'
