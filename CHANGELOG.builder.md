@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.1...builder-1.0.2) (2025-03-09)
+
+
+### Bug Fixes
+
+* **workflows:** Set semantic-release id ([3560a23](https://github.com/webgrip/techdocs-builder/commit/3560a233f9a63059759e1be9259e9f547a04f2a1))
+
 ## [1.0.1](https://github.com/webgrip/techdocs-builder/compare/builder-1.0.0...builder-1.0.1) (2025-03-09)
 
 
