@@ -46,3 +46,4 @@ COPY --from=openjdk /usr/local/bin/plantuml /usr/local/bin/plantuml
 
 WORKDIR /docs
 
+
