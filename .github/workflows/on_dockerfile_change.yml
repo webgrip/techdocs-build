@@ -1,4 +1,4 @@
-name: '[Workflow] On Source Change'
+name: '[Workflow] On Dockerfile Change'
 
 concurrency:
   group: push-${{ github.branch }}
@@ -10,7 +10,7 @@ on:
     paths:
       - 'ops/docker/**'
       - '.releaserc.json'
-      - '.github/workflows/on_source_change.yml'
+      - 'on_dockerfile_change.yml'
 jobs:
   release:
     name: 'Release'
