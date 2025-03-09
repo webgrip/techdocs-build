@@ -23,6 +23,11 @@
         "successCmd": "echo \"version=${nextRelease.version}\" >> $GITHUB_OUTPUT"
       }
     ],
-    "@semantic-release/github"
+    [
+      "@semantic-release/github",
+      {
+        "labels": false
+      }
+    ]
   ]
 }
