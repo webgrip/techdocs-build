@@ -55,5 +55,5 @@ jobs:
           docker-context: '.'
           docker-file: '${{ matrix.path }}/Dockerfile'
           docker-tags: |
-            ${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
-            ${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ steps.semantic-release.outputs.version }}
+            ${{ github.repository_owner }}/${{ github.event.repository.name }}-${{ steps.strip-path.outputs.finalDirectory }}:${{ steps.semantic-release.outputs.version }}
+            ${{ github.repository_owner }}/${{ github.event.repository.name }}-${{ steps.strip-path.outputs.finalDirectory }}:latest
