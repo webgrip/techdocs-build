@@ -39,13 +39,15 @@ jobs:
           final_dir=$(basename "$changed_path")
           echo "finalDirectory=$final_dir" >> $GITHUB_OUTPUT
 
-      - uses: webgrip/workflows/.github/composite-actions/semantic-release@main
+      - id: semantic-release
+        uses: webgrip/workflows/.github/composite-actions/semantic-release@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release-type: ${{ steps.strip-path.outputs.finalDirectory }}
 
-      - uses: webgrip/workflows/.github/composite-actions/docker-build-push@main
+      - id: docker-build-push
+        uses: webgrip/workflows/.github/composite-actions/docker-build-push@main
         env:
             DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
             DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
